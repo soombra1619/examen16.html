@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tienda de Libros</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-image: url("https://png.pngtree.com/thumb_back/fw800/background/20250227/pngtree-a-mystical-library-in-cave-illuminated-by-candles-with-shelves-of-image_17003963.jpg"); /* Reemplaza con la ruta de tu imagen */
+    background-size: cover; 
+    background-repeat: no-repeat; 
+      color: #333;
+      
+    }
+
+    header {
+      background-color: #5e2a2a;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #8b3d3d;
+      padding: 0.5rem 0;
+      flex-wrap: wrap;
+    }
+
+    nav button {
+      margin: 0.3rem;
+      padding: 0.6rem 1rem;
+      border: none;
+      background-color: #f1e4d1;
+      color: #5e2a2a;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+
+    nav button:hover {
+      background-color: #d2bfa3;
+    }
+
+    section {
+      display: none;
+      padding: 2rem;
+      animation: fade 0.5s ease-in-out;
+    }
+
+    section.active {
+      display: block;
+    }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .card {
+      width: 400px;
+      height: 600px;
+      perspective: 1000px;
+    }
+
+    .card-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+    }
+
+    .card:hover .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .card-front img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-back {
+      background-color: #fff;
+      transform: rotateY(180deg);
+      padding: 1rem;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .buy-button {
+      background-color: #5e2a2a;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+    .buy-button:hover {
+      background-color: #8b3d3d;
+    }
+
+    .comprar {
+      background-color: #d4af37;
+      color: #5e2a2a;
+      font-weight: bold;
+      border: none;
+      padding: 0.5rem;
+      margin-top: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s;
+    }
+
+    .comprar:hover {
+      background-color: #c59d2f;
+    }
+
+    footer {
+      background-color: #5e2a2a;
+      color: white;
+      text-align: center;
+      padding: 0.5rem;
+      margin-top: 30px;
+    }
+        .presentacion {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .presentacion h1 {
+      font-size: 2.5em;
+      color: #ffffff;
+      margin-bottom: 20px;
+    }
+
+    .recuadro {
+      background-color: #ffffff;
+      border: 1px solid #ddd;
+      border-left: 5px solid #8e44ad;
+      padding: 20px;
+      margin: 20px auto;
+      text-align: left;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      max-width: 800px;
+    }
+
+    .recuadro h2 {
+      color: #8e44ad;
+      margin-top: 0;
+    }
+
+    .recuadro p {
+      font-size: 1.1em;
+      line-height: 1.6;
+    }
+
+    #registro {
+  background-color: #fff5ea;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+#registro form {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+}
+
+#registro h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #5a3825;
+}
+
+#registro label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+#registro input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+#registro button {
+  width: 100%;
+  padding: 12px;
+  background-color: #5a3825;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#registro button:hover {
+  background-color: #472c1d;
+}
+
+  </style>
+
+  
+
+
+
+
+
+</head>
+<body>
+  <header>
+    <h1>LA CUEVA DEL LIBRO</h1>
+  </header>
+
+  <nav>
+    <button onclick="showSection('quienes somos')">¿Quienes somos?</button>
+    <button onclick="showSection('fantasia')">Fantasía</button>
+    <button onclick="showSection('terror')">Terror</button>
+    <button onclick="showSection('ciencia')">Ciencia</button>
+    <button onclick="showSection('romance')">Romance</button>
+    <button onclick="showSection('REGISTRO')">REGISTRO</button>
+  </nav>
+  <section id="quienes somos" class="active">
+
+      <div class="presentacion">
+   
+    <h1>CUEVA DEL LIBRO</h1>
+
+    <div class="recuadro">
+      <h2>Nuestra Historia</h2>
+      <p><strong>Mundo de Letras</strong> nació en el corazón de la ciudad con un solo propósito: acercar la magia de los libros a cada lector. Desde nuestras primeras estanterías, nos hemos comprometido con la cultura, la imaginación y el placer de leer.</p>
+    </div>
+
+    <div class="recuadro">
+      <h2>Misión</h2>
+      <p>Promover el hábito de la lectura ofreciendo libros de calidad para todos los gustos y edades, brindando una atención personalizada y fomentando la cultura local.</p>
+    </div>
+
+    <div class="recuadro">
+      <h2>Visión</h2>
+      <p>Ser reconocidos como un espacio cultural referente en la ciudad, donde cada visita sea una experiencia que inspire, eduque y conecte a las personas con el conocimiento.</p>
+    </div>
+  </div>
+    
+   
+
+  </section>
+
+  <section id="fantasia">
+    <h2>Fantasía</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://cosmere.es/wp-content/uploads/2021/08/385-x-600-elantris-2.jpg" alt="Fantasía">
+            </div>
+            <div class="card-back">
+                <h3>Elantris</h3>
+                <p>Elantris, la ciudad de los dioses, fue una vez un lugar de esplendor y magia. 
+                    Sus habitantes, inmortales y poderosos, eran venerados por todos. 
+                    Pero todo cambió cuando la maldición cayó: la ciudad se pudrió y sus habitantes se convirtieron en seres deformes, 
+                    atrapados entre la vida y la muerte.</p>
+                <button class="comprar">Comprar</button>
+            </div>
+        </div>
+    </div>
+
+      <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://cosmere.es/wp-content/uploads/2021/08/385-x-600-el-imperio-final-1.jpg" alt="Fantasía">
+            </div>
+            <div class="card-back">
+                <h3>El imperio final</h3>
+                <p>Durante mil años, las cenizas han caído del cielo y nada florece. 
+                    El mundo está dominado por el Lord Legislador, 
+                    un ser inmortal que gobierna con puño de hierro a través del miedo y la represión. 
+                    La nobleza obedece, y los skaa —la clase baja— viven esclavizados, sin esperanza.</p>
+                <button class="comprar">Comprar</button>
+            </div>
+        </div>
+    </div>
+
+      <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://cosmere.es/wp-content/uploads/2021/08/385-x-600-el-pozo-de-la-ascension-1.jpg" alt="Fantasía">
+            </div>
+            <div class="card-back">
+                <h3>El pozo de la ascension</h3>
+                <p>Han pasado algunos meses desde que el Lord Legislador fue derrotado. 
+                    Contra todo pronóstico, el Imperio Final ha caído, 
+                    pero el mundo no se ha convertido en un lugar mejor. 
+                    Sin un tirano que lo controle, el caos se ha desatado: ciudades en ruinas, 
+                    nobles en guerra y ejércitos que se alzan reclamando el trono.</p>
+                <button class="comprar">Comprar</button>
+            </div>
+        </div>
+            </div>
+    
+      <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://cosmere.es/wp-content/uploads/2021/08/385-x-600-el-heroe-de-las-heras-1.jpg" alt="Fantasía">
+            </div>
+            <div class="card-back">
+                <h3>El Héroe de las Eras</h3>
+                <p>El mundo está al borde del colapso. Las cenizas caen más densamente, 
+                    las brumas matan durante el día, y la tierra tiembla con una fuerza creciente. 
+                    La muerte del Lord Legislador no trajo salvación, sino la liberación de una 
+                    fuerza aún más destructiva: Ruina, una entidad cósmica cuyo propósito es deshacer toda la creación.</p>
+                <button class="comprar">Comprar</button>
+            </div>
+        </div>
+    </div>
+
+      <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://www.crisol.com.pe/media/catalog/product/cache/f6d2c62455a42b0d712f6c919e880845/9/7/9788445011119_hfv2hzneyamrzdod.jpg" alt="Fantasía">
+            </div>
+            <div class="card-back">
+                <h3>El señor de los anillos</h3>
+                <p>En la apacible Comarca, un joven hobbit llamado Frodo Bolsón hereda un misterioso anillo de su tío Bilbo. 
+                    Pronto descubre que se trata del Anillo Único, una poderosa y maligna reliquia forjada por el señor oscuro Sauron para dominar toda la Tierra Media. 
+                    Aunque Sauron fue vencido tiempo atrás, su espíritu ha regresado y busca recuperar el Anillo para restaurar su poder.
+
+                    Para evitar que el Anillo caiga en manos del mal, Frodo emprende un peligroso viaje acompañado por una Compañía formada por hobbits, 
+                    hombres, un elfo, un enano y un mago: Gandalf, Aragorn, Legolas, Gimli, Boromir, Sam, Merry y Pippin. 
+                    Juntos cruzarán tierras antiguas, enfrentando ejércitos, traiciones y tentaciones, mientras el peso del Anillo amenaza con corromper a todos.</p>
+                <button class="comprar">Comprar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://www.penguinlibros.com/pe/3008287/el-ladron-del-rayo-percy-jackson-y-los-dioses-del-olimpo-1.jpg" alt="Fantasía">
+            </div>
+            <div class="card-back">
+                <h3>El Reino Olvidado</h3>
+                <p>Percy Jackson siempre se sintió un chico normal… hasta que descubre que es hijo de Poseidón, el dios del mar.
+
+                    Acusado injustamente de robar el rayo maestro de Zeus, Percy deberá emprender una 
+                    peligrosa misión junto a sus amigos para evitar una guerra entre los dioses del Olimpo.
+
+                    Percy Jackson y el ladrón del rayo es una aventura llena de acción, humor y mitología griega, 
+                    donde un joven semidiós debe enfrentarse a monstruos, dioses y a su propio destino.</p>
+                <button class="comprar">Comprar</button>
+            </div>
+        </div>
+    </div>
+
+     <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://www.crisol.com.pe/media/catalog/product/cache/f6d2c62455a42b0d712f6c919e880845/9/7/9786124498015_.jpg" alt="Fantasía">
+            </div>
+            <div class="card-back">
+                <h3>Harry Potter y la piedra filosofal</h3>
+                <p>Harry Potter y la piedra filosofal es el primer libro de la saga escrita por J.K. Rowling. La historia sigue a Harry Potter, un niño huérfano que vive con sus crueles tíos y su insoportable primo. El día de su undécimo cumpleaños, descubre que en realidad es un mago y ha sido aceptado en el Colegio Hogwarts de Magia y Hechicería.
+
+En Hogwarts, Harry hace nuevos amigos como Ron Weasley y Hermione Granger, y comienza a aprender hechicería. Pronto se entera de que sus padres no murieron en un accidente, sino que fueron asesinados por el malvado mago Lord Voldemort, quien también intentó matarlo cuando era un bebé.
+
+Durante el año escolar, Harry y sus amigos descubren que un objeto mágico muy poderoso, la piedra filosofal, está escondido en la escuela. Alguien está tratando de robarla y Harry se enfrenta a numerosos desafíos para evitar que caiga en manos equivocadas. Al final, descubre que el profesor Quirrell, poseído por Voldemort, es el responsable, y logra impedir que la piedra sea robada.</p>
+                <button class="comprar">Comprar</button>
+            </div>
+        </div>
+    </div>
+
+     <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://www.crisol.com.pe/media/catalog/product/cache/f6d2c62455a42b0d712f6c919e880845/9/7/9786124498015_.jpg" alt="Fantasía">
+            </div>
+            <div class="card-back">
+                <h3>H</h3>
+                <p>...</p>
+                <button class="comprar">Comprar</button>
+            </div>
+        </div>
+    </div>
+
+    
+    </div>
+  </section>
+
+  <section id="terror">
+    <h2>Terror</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://www.crisol.com.pe/media/catalog/product/cache/f6d2c62455a42b0d712f6c919e880845/9/7/9788477026181_hzpnhekfblylozgk.jpg" alt="Terror">
+            </div>
+            <div class="card-back">
+                <h3>En la montañas de la locura</h3>
+                <p>Durante una expedición a la Antártida, un grupo de científicos de la Universidad de Miskatonic 
+                    descubre unas ruinas ancestrales ocultas bajo el hielo… y algo mucho más antiguo y aterrador que la humanidad.
+
+                    Mientras exploran las siniestras montañas, se enfrentan a horrores inimaginables y a secretos 
+                    que desafían la cordura, desenterrando vestigios de civilizaciones alienígenas y seres que aún acechan.
+
+                    En las montañas de la locura es uno de los relatos más icónicos del horror cósmico, donde 
+                    Lovecraft despliega su visión del terror ancestral y la insignificancia del ser humano frente a los vastos misterios del universo.</p>
+                <button class="comprar">Comprar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://www.hermidaeditores.com/images/productos/b_add-58-1591719124.webp" alt="Terror">
+            </div>
+            <div class="card-back">
+                <h3>Hellraiser el corazon condenado</h3>
+                <p>Obsesionado por los placeres prohibidos, Frank Cotton obtiene una misteriosa caja —el Lamento de la Configuración— que abre la puerta a los Cenobitas, 
+                    seres demoníacos dedicados al dolor y al placer extremos.
+
+                    Al escapar parcialmente del infierno, Frank necesitará sangre humana para recuperar su forma… 
+                    mientras su cuñada Julia se convierte en su cómplice en un macabro pacto.
+
+                    El corazón condenado es la novela corta que dio origen a Hellraiser: una historia oscura y 
+                    retorcida sobre deseo, dolor y los límites de la perversión humana.</p>
+                <button class="comprar">Comprar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://contrapunto.cl/cdn/shop/files/30140.jpg?v=1725989679" alt="Terror">
+            </div>
+            <div class="card-back">
+                <h3>El resplandor </h3>
+                <p>Jack Torrance, un escritor frustrado y alcohólico en recuperación, acepta un trabajo como cuidador del Hotel Overlook, 
+                    un aislado y majestuoso hotel en las montañas, junto a su esposa Wendy y su hijo Danny.
+
+                    Pero el Overlook guarda oscuros secretos y pronto Jack empieza a perder la razón, 
+                    empujado por las fuerzas sobrenaturales del lugar. Mientras tanto, Danny, que posee "el resplandor" —un don psíquico—, 
+                    percibe las aterradoras presencias que habitan el hotel.
+
+                    El resplandor es un clásico del terror psicológico, donde la locura, la violencia y 
+                    lo sobrenatural se combinan en una historia inquietante sobre la fragilidad humana y el poder del mal.</p>
+                <button class="comprar">Comprar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://www.valdemar.com/wp-content/uploads/GOT-003.jpg" alt="Terror">
+            </div>
+            <div class="card-back">
+                <h3>El monje</h3>
+                <p>En la España del siglo XVII, Ambrosio, un venerado monje conocido por su virtud, 
+                    cae poco a poco en la tentación y la corrupción más absoluta.
+
+                    Seducido por fuerzas oscuras, su descenso lo lleva al crimen, 
+                    la perversión y al pacto con el demonio, desatando una espiral de horror y tragedia.
+
+                    El monje es una novela gótica clásica, famosa por su mezcla de erotismo, 
+                    religión, magia negra y locura, que explora los límites del pecado y la hipocresía humana.</p>
+                <button class="comprar">Comprar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src=" https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1574172564i/48758708.jpg" alt="Terror">
+            </div>
+            <div class="card-back">
+                <h3>Nuestra parte de noche</h3>
+                <p> En la Argentina de la dictadura, Gaspar y su padre Juan emprenden un viaje oscuro marcado por la amenaza de una secta secreta: 
+                    La Orden, devotos de un dios antiguo y cruel que exige rituales sangrientos.
+
+                    Juan, médium al servicio de La Orden, lucha por proteger a su hijo del destino que le quieren imponer, 
+                    enfrentándose a la muerte, la magia negra y su propio pasado.
+
+                    Nuestra parte de noche es una novela inquietante que mezcla terror, dictadura, horror sobrenatural y vínculos familiares, 
+                    escrita con la intensidad y la crudeza característica de Mariana Enríquez.</p>
+                <button class="comprar">Comprar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://bookscompany.pe/wp-content/uploads/2025/02/9788412229356.jpg" alt="Terror">
+            </div>
+            <div class="card-back">
+                <h3> El color que cayo del cielo</h3>
+                <p>En una zona rural cerca de Arkham, Massachusetts, cae un meteorito extraño en la granja de los Gardner. 
+                    Lo que al principio parece un fenómeno natural pronto se revela como algo mucho más inquietante: 
+                    el meteorito contiene un "color" indescriptible, algo más allá del espectro visible y de toda comprensión humana.
+
+                    Con el paso del tiempo, la tierra alrededor del lugar comienza a marchitarse, los cultivos se pudren, 
+                    los animales mutan y los miembros de la familia Gardner sufren una lenta y aterradora transformación mental y física. 
+                    Nadie puede explicar lo que está ocurriendo, solo se sabe que ese "color" se ha infiltrado en todo y lo está corrompiendo desde adentro.
+
+                    Narrado por un topógrafo que investiga la zona años después, el relato mezcla el horror cósmico con 
+                    la ciencia ficción, dejando al lector con una sensación de impotencia ante fuerzas alienígenas incomprensibles.</p>
+                <button class="comprar">Comprar</button>
+            </div>
+        </div>
+    </div>
+
+    </div>
+  </section>
+
+  <section id="ciencia">
+    <h2>Ciencia</h2>
+    <div class="cards">
+        <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://covers.libro.fm/9781668605806_1120.jpg" alt="ciencia">
+            </div>
+            <div class="card-back">
+                <h3>No condicence</h3>
+                <p>En la despiadada Night City, un grupo de desconocidos es reunido a la fuerza para una misión peligrosa. 
+                    Cada uno tiene su propia historia, sus propias heridas… y sus propias razones para no confiar en nadie.
+
+                    En un mundo dominado por corporaciones, ciberimplantes y traiciones, 
+                    deberán enfrentarse a enemigos implacables y a su propio pasado si quieren sobrevivir. Pero en Night City, todo tiene un precio.
+
+                    Cyberpunk 2077: No Coincidence es un trepidante thriller futurista donde las alianzas 
+                    se forjan y rompen al filo de la desesperación, y la línea entre la vida y la muerte es tan delgada como un circuito de datos.</p>
+                <button class="comprar">Comprar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://m.media-amazon.com/images/I/81Y9g7ohbRL._UF1000,1000_QL80_.jpg" alt="ciencia">
+            </div>
+            <div class="card-back">
+                <h3>Space opera</h3>
+                <p>En un universo donde las civilizaciones lucharon hasta casi aniquilarse, la paz se mantiene gracias… a un concurso intergaláctico de música.
+
+                    La Tierra, recién descubierta por la comunidad galáctica, debe participar o enfrentarse a la extinción. 
+                    Su única esperanza: Decibel Jones, una vieja estrella del glam rock venido a menos, y su banda.
+
+                    Space Opera es una alocada y brillante sátira espacial que mezcla ciencia ficción, humor, música y una profunda reflexión sobre la humanidad… 
+                    todo al ritmo de un espectáculo cósmico al estilo Eurovisión.</p>
+                <button class="comprar">Comprar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://cdn.culturagenial.com/es/imagenes/cartel-2001-0-cke.jpg?class=article" alt="ciencia">
+            </div>
+            <div class="card-back">
+                <h3>2001 Odisea en el espacio</h3>
+                <p>Desde los albores de la humanidad hasta un futuro distante, la aparición de misteriosos monolitos marca los momentos clave de la evolución humana.
+
+                    En plena era espacial, la nave Discovery One viaja hacia Júpiter en una misión secreta. 
+                    A bordo, los astronautas deben lidiar con HAL 9000, una inteligencia artificial que empieza a mostrar un comportamiento letal.
+
+                    Con imágenes impactantes, música inolvidable y un final abierto a múltiples interpretaciones, 
+                    2001: Odisea del espacio es una obra maestra del cine que explora la existencia, la tecnología y el destino de la humanidad en su contacto con lo desconocido.</p>
+                <button class="comprar">Comprar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://bookscompany.pe/wp-content/uploads/2025/02/9788413143415.jpg" alt="ciencia">
+            </div>
+            <div class="card-back">
+                <h3>El problema de los 3 cuerpos</h3>
+                <p>Durante la Revolución Cultural en China, la joven astrofísica Ye Wenjie presencia la muerte de su padre y es enviada 
+                    a un remoto centro militar de investigación. Allí, en secreto, la humanidad hace el primer contacto con una civilización alienígena del sistema estelar Trisolaris, un mundo que sufre un ciclo caótico debido al problema gravitacional de sus tres soles —el llamado “problema de los tres cuerpos”.
+                    Décadas después, en el presente, científicos de todo el mundo comienzan a suicidarse misteriosamente, mientras fenómenos extraños y
+                    aparentes imposibilidades físicas afectan a la Tierra. El físico Wang Miao investiga lo ocurrido y descubre que todo está conectado con un videojuego de realidad virtual llamado Tres Cuerpos, donde los jugadores intentan entender los patrones caóticos de un mundo alienígena.
+                    Pronto queda claro que Trisolaris está en camino hacia la Tierra, y que una parte de la humanidad ha perdido la fe en su propio mundo, aliándose en secreto con los invasores.</p>
+                <button class="comprar">Comprar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://www.libreriasur.com.pe/imagenes/9788413/978841314645.webp" alt="ciencia">
+            </div>
+            <div class="card-back">
+                <h3>El bosque oscuro</h3>
+                <p>La Tierra ha recibido un mensaje claro: los trisolaranos vienen, y su flota llegará en 400 años. 
+                    Aunque la humanidad ha ganado tiempo, ahora enfrenta una amenaza existencial sin precedentes. Peor aún, los alienígenas 
+                    han desplegado una avanzada tecnología llamada sofones que espía en tiempo real todos los movimientos humanos, impidiendo 
+                    cualquier desarrollo científico o estratégico secreto.
+
+                    Para contrarrestar esto, la ONU lanza el Proyecto Vallado: cuatro personas —llamadas "vallados"— reciben poder absoluto para formular 
+                    planes secretos para defender la Tierra. Solo ellos conocerán sus estrategias, con la esperanza de que los trisolaranos, 
+                    incapaces de leer sus mentes humanas, no puedan anticiparlas.
+
+                    Entre ellos está Luo Ji, un sociólogo aparentemente insignificante, que es el único vallado que no parece hacer nada. Pero Luo Ji 
+                    comprende un concepto fundamental: el bosque oscuro. En él, cada civilización del universo es como un cazador oculto entre los árboles. 
+                    Si una se revela, es eliminada para asegurar la supervivencia de las demás.
+
+                    Mientras las tensiones en la Tierra aumentan y las conspiraciones se multiplican, Luo Ji se convierte en la última esperanza para toda la humanidad.</p>
+                <button class="comprar">Comprar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://www.crisol.com.pe/media/catalog/product/cache/cf84e6047db2ba7f2d5c381080c69ffe/9/7/9788413146461_i3lorr9o1qdy3asf.jpg" alt="ciencia">
+            </div>
+            <div class="card-back">
+                <h3>El fin de la mueerte</h3>
+                <p>Tras siglos de preparación, la humanidad finalmente logra una frágil coexistencia con la civilización alienígena de Trisolaris, 
+                    gracias a la amenaza del deterrente oscuro: un mecanismo ideado por Luo Ji que puede revelar la ubicación de Trisolaris al universo, 
+                    provocando su destrucción por otras civilizaciones. La guerra ha sido evitada… por ahora.
+
+                    En medio de esta tensa paz, una astrofísica llamada Cheng Xin despierta de la hibernación después de siglos y asume un papel 
+                    clave en el destino de la Tierra. Con una mirada más empática y pacifista que sus predecesores, Cheng Xin toma decisiones que 
+                    alteran el equilibrio galáctico, con consecuencias devastadoras para la humanidad.
+
+                    A medida que se revelan los verdaderos horrores del universo —un cosmos despiadado, donde cada civilización vive escondida 
+                    en el “bosque oscuro” para evitar ser aniquilada— la humanidad se enfrenta a su desafío final: la extinción total o una 
+                    solución que trascienda el tiempo, el espacio y la comprensión humana.
+
+                    Desde civilizaciones de dimensiones superiores hasta viajes a través del tiempo cósmico, El fin de la muerte lleva 
+                    la saga a su conclusión épica, profunda y sobrecogedora.</p>
+                <button class="comprar">Comprar</button>
+            </div>
+        </div>
+    </div>
+
+    
+    </div>
+  </section>
+
+  <section id="romance">
+    <h2>Romance</h2>
+    <div class="cards">
+        <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_608114-MLA74962662398_032024-O.webp" alt="Romance">
+            </div>
+            <div class="card-back">
+                <h3>antes de ti</h3>
+                <p>Louisa Clark, una joven sin grandes aspiraciones, acepta trabajar como cuidadora de Will Traynor, 
+                    un hombre joven y exitoso que quedó paralizado tras un accidente.
+
+                    Aunque al principio su relación es tensa, poco a poco entre ellos nace un vínculo especial 
+                    que cambiará sus vidas y los enfrentará a decisiones difíciles sobre el amor, la libertad y el sentido de la vida.
+
+                    Yo antes de ti es una emotiva novela romántica sobre la esperanza, la superación y el poder transformador de las relaciones humanas.</p>
+                <button class="comprar">Comprar</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://www.penguinlibros.com/pe/2492465/orgullo-y-prejuicio.jpg" alt="romance">
+            </div>
+            <div class="card-back">
+                <h3>Orgullo y prejuicio</h3>
+                <p>UEn la Inglaterra del siglo XIX, la inteligente y vivaz Elizabeth Bennet se enfrenta a las normas sociales y a 
+                    sus propios prejuicios cuando conoce al orgulloso y reservado Sr. Darcy.
+
+                    Entre malentendidos, críticas sociales y juegos de apariencias, ambos descubrirán que el amor 
+                    verdadero puede superar el orgullo y los prejuicios.
+
+                    Orgullo y prejuicio es una de las novelas más célebres de la literatura, una crítica sutil a 
+                    las costumbres de su época y una historia atemporal de amor y autodescubrimiento.</p>
+                <button class="comprar">Comprar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://www.penguinlibros.com/pe/1698171/crepusculo-saga-crepusculo-1.jpg" alt="romance">
+            </div>
+            <div class="card-back">
+                <h3>Crepusculo</h3>
+                <p>Cuando Bella Swan se muda a Forks, un pequeño y lluvioso pueblo, su vida cambia al 
+                    conocer a Edward Cullen, un misterioso joven que resulta ser un vampiro.
+
+                    A pesar del peligro que implica su amor prohibido, Bella y Edward se ven arrastrados 
+                    a una intensa relación marcada por la atracción, el riesgo y el enfrentamiento con criaturas oscuras.
+
+                    Crepúsculo es el inicio de la saga romántica que mezcla amor, misterio y fantasía, 
+                    conquistando a millones de lectores en todo el mundo.</p>
+                <button class="comprar">Comprar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://images.cdn3.buscalibre.com/fit-in/520x520/f2/67/f267cdd7d83a8b08394786f07f950ea1.jpg" alt="romance">
+            </div>
+            <div class="card-back">
+                <h3>bajo la misma estrella</h3>
+                <p>Hazel Grace, una adolescente con cáncer, cree tener claro el destino de su vida… 
+                    hasta que conoce a Augustus Waters, un chico que le demuestra que el amor, la amistad y la esperanza pueden cambiarlo todo.
+
+                    Juntos emprenden un viaje que los enfrenta a sus sueños, sus miedos y a las inevitables pérdidas, 
+                    descubriendo que algunos momentos valen toda una vida.
+
+                    Bajo la misma estrella es una conmovedora historia sobre el amor y la fragilidad de la vida, 
+                    contada con humor, sensibilidad y una mirada profunda sobre la existencia.</p>
+                <button class="comprar">Comprar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://cdn.culturagenial.com/es/imagenes/lo-que-el-viento-se-llevo-0-cke.jpg?class=article" alt="romance">
+            </div>
+            <div class="card-back">
+                <h3>Lo que el viento se llevo</h3>
+                <p>En el sur de Estados Unidos, en plena Guerra de Secesión (1861-1865), Scarlett O’Hara, una joven bella, 
+                    mimada y voluntariosa, vive en la plantación de Tara, propiedad de su acaudalada familia. Acostumbrada a una vida de privilegios, 
+                    Scarlett ve su mundo derrumbarse cuando estalla la guerra y su estilo de vida sureño entra en decadencia.
+
+                    Obsesionada con el amor imposible de Ashley Wilkes, quien se casa con su prima Melanie, Scarlett hará lo 
+                    que sea para sobrevivir y proteger lo que le queda: su hogar y su orgullo. En su camino aparece Rhett 
+                    Butler, un cínico y encantador aventurero que desafía todas las convenciones y que se convierte tanto en su amante como en su mayor desafío emocional.
+
+                    A lo largo de los años, Scarlett evoluciona de niña caprichosa a mujer fuerte y decidida, enfrentando 
+                    la guerra, la ruina económica, la maternidad, la pérdida y el desamor, mientras lucha por controlar su destino en un mundo que cambia para siempre.</p>
+                <button class="comprar">Comprar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="https://proassetspdlcom.cdnstatics2.com/usuaris/libros/fotos/311/original/portada_heartstopper-1-dos-chicos-juntos_victoria-simo-perales_202001070943.jpg" alt="romance">
+            </div>
+            <div class="card-back">
+                <h3>Heartstopper</h3>
+                <p>Heartstopper es una novela gráfica (y también webcómic) que cuenta la dulce y emotiva historia 
+                    de Charlie Spring y Nick Nelson, dos chicos de secundaria en Inglaterra que descubren que la amistad puede transformarse en algo más profundo.
+
+                    Charlie, abiertamente gay y muy sensible, ha pasado por momentos difíciles debido al acoso 
+                    escolar. Nick, jugador de rugby popular y de buen corazón, empieza a acercarse a él cuando coinciden en clase. 
+                    Lo que comienza como una amistad inesperada se va convirtiendo en una conexión especial, mientras Nick empieza a cuestionar su propia identidad y sentimientos.
+
+                    A lo largo de la historia, ambos enfrentan dudas, miedos y descubrimientos, rodeados de un 
+                    grupo de amigos que los apoya. La novela aborda temas como la autoaceptación, el primer amor, la identidad sexual, 
+                    la salud mental y el bullying, todo con una narrativa cálida y honesta.</p>
+                <button class="comprar">Comprar</button>
+            </div>
+        </div>
+    </div>
+
+
+    </div>
+  </section>
+
+
+  <section id="REGISTRO">
+    
+   <section id="registro" style="background-color: #fff5ea; padding: 40px 20px; display: flex; justify-content: center;">
+  <form style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 0 15px rgba(0,0,0,0.1); max-width: 400px; width: 100%;">
+    <h2 style="text-align: center; margin-bottom: 20px; color: #5a3825;">Regístrate</h2>
+
+    <label for="nombre" style="display: block; margin-bottom: 5px; font-weight: bold;">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" required
+      style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 6px; border: 1px solid #ccc;">
+
+    <label for="correo" style="display: block; margin-bottom: 5px; font-weight: bold;">Correo electrónico:</label>
+    <input type="email" id="correo" name="correo" required
+      style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 6px; border: 1px solid #ccc;">
+
+    <label for="contrasena" style="display: block; margin-bottom: 5px; font-weight: bold;">Contraseña:</label>
+    <input type="password" id="contrasena" name="contrasena" required
+      style="width: 100%; padding: 10px; margin-bottom: 20px; border-radius: 6px; border: 1px solid #ccc;">
+
+    <button type="submit"
+      style="width: 100%; padding: 12px; background-color: #5a3825; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">
+      Crear cuenta
+    </button>
+  </form>
+</section>
+
+
+  </section>
+
+<footer id="footer" style="background-color: #222; color: #fff; padding: 20px; text-align: center;">
+  <div class="footer-scroll" style="display: flex; overflow-x: auto; gap: 20px; padding-bottom: 10px; justify-content: center; scroll-snap-type: x mandatory;">
+
+    <!-- Logo y Dirección -->
+    <div style="min-width: 200px; scroll-snap-align: center;">
+      <p>Calle Bolognesi 510, Miraflores<br>15074, Lima (Perú)</p>
+      <div style="margin-top: 10px;">
+        <i class="fa fa-facebook" aria-hidden="true" style="margin: 0 5px;"></i>
+        <i class="fa fa-twitter" aria-hidden="true" style="margin: 0 5px;"></i>
+        <i class="fa fa-instagram" aria-hidden="true" style="margin: 0 5px;"></i>
+        <i class="fa fa-youtube" aria-hidden="true" style="margin: 0 5px;"></i>
+        <i class="fa fa-whatsapp" aria-hidden="true" style="margin: 0 5px;"></i>
+      </div>
+    </div>
+
+    <!-- Contacto -->
+    <div style="min-width: 200px; scroll-snap-align: center;">
+      <h3>Contacto</h3>
+      <p><i class="fa fa-phone"></i> (511) 713 0505</p>
+      <p><i class="fa fa-envelope"></i> info@elvirrey.com</p>
+      <p><i class="fa fa-comment"></i> Formulario de contacto</p>
+      <p><i class="fa fa-clock"></i> Lun-Sáb 10am–8:30pm<br>Dom 11am–7pm</p>
+    </div>
+
+    <!-- Atención al cliente -->
+    <div style="min-width: 200px; scroll-snap-align: center;">
+      <h3>Atención al cliente</h3>
+      <p>Quiénes somos</p>
+      <p>Pedidos especiales</p>
+      <p>Libro de reclamaciones</p>
+      <p>WhatsApp</p>
+    </div>
+
+  </div>
+
+  <div style="margin-top: 20px; font-size: 0.9em;">
+    2025 © <strong>Librería El Virrey</strong>. Todos los derechos reservados
+  </div>
+</footer>
+
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
+</body>
+</html>
